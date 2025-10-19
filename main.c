@@ -250,4 +250,74 @@ void DisplayDistances() {
         printf(" ");
     }
 }
+void NewDeliveryRequest() {
+    if (cityCount < 2) {
+        printf("At least two cities are required for deliveries.");
+        return;
+    }
+    if (delivery_count >= MAX_DELIVERIES) {
+        printf("Max delivery records reached.");
+        return;
+    }
+    int src, dest, weight, vtype;
 
+    printf("Select source city : ");
+    for(int i=0; i < cityCount; i++) {
+        printf("%d: %s", i, cities[i].name);
+    }
+    if(scanf("%d", &src)!= 1) {
+        printf("Invalid input.");
+        clear_input_buffer();
+        return;
+    }
+    printf("Select destination city:");
+    if(scanf("%d", &dest)!= 1) {
+        printf("Invalid input.");
+        clear_input_buffer();
+        return;
+    }
+    clear_input_buffer();
+
+    if (src < 0 || src >= cityCount || dest < 0 || dest >= cityCount || src == dest) {
+        printf("Invalid source/destination selected.");
+        return;
+    }
+    printf("Enter weight (kg) : ");
+    if(scanf("%d", &weight)!= 1) {
+        printf("Invalid input.");
+        clear_input_buffer();
+        return;
+    }
+    clear_input_buffer();
+    if (weight <= 0) {
+        printf("Weight must be positive.");
+        return;
+    }
+    printf("Select vehicle type : ");
+    for (int i = 0; i < 3; i++) {
+        printf("%d: %s (Capacity: %d kg)", i+1, vehicles[i].name, vehicles[i].capacity);
+    }
+    if(scanf("%d", &vtype)!= 1) {
+        printf("Invalid input.");
+        clear_input_buffer();
+        return;
+    }
+    clear_input_buffer();
+
+    if (vtype < 1 || vtype > 3) {
+        printf("Invalid vehicle type.");
+        return;
+    }
+    Vehicle v = vehicles[vtype - 1];
+    if(weight > v.capacity) {
+        printf("Weight exceeds vehicle capacity!");
+        return;
+    }
+    deliveries[delivery_count].src = src;
+    deliveries[delivery_count].dest = dest;
+    deliveries[delivery_count].weight = weight;
+    deliveries[delivery_count].vehicle_type = vtype -1;
+    delivery_count++;
+
+    printf("Delivery request recorded.");
+}
