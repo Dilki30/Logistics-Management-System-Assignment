@@ -228,3 +228,21 @@ void InputDistance() {
     distance[to][from] = dist;
     printf("Distance updated.");
 }
+void DisplayDistances() {
+    if (cityCount == 0) {
+        printf("No cities added yet.");
+        return;
+    }
+    printf("Distance Matrix : ");
+    for(int i = 0; i<cityCount; i++) {
+        printf("%-10s", cities[i].name);
+    }
+    printf(" ");
+    for (int i = 0; i < cityCount; i++) {
+        printf("%-6s", cities[i].name);
+        for (int j = 0; j < cityCount; j++) {
+            printf("%-10d", distance[i][j]);
+        }
+        printf(" ");
+    }
+}
