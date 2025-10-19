@@ -63,144 +63,27 @@ int main() {
             continue;
         }
         clear_input_buffer();
+
+        switch(choice) {
+    case 1: AddCity();
+    break;
+    case 2: RenameCity();
+    break;
+    case 3: RemoveCity();
+    break;
+    case 4: InputDistance();
+    break;
+    case 5: DisplayDistances();
+    break;
+    case 6: NewDeliveryRequest();
+    break;
+    case 7: CalculateAndDisplayLatestDelivery();
+    break;
+    case 8: ShowReports();
+    break;
+    case 9: exit(0);
+    default: printf("Invalid choice! Try again.");
+}
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     return 0;
 }
