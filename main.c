@@ -37,7 +37,11 @@ City cities[MAX_CITIES];
 int cityCount = 0;
 int distance[MAX_CITIES][MAX_CITIES] = {0};
 
-Vehicle vehicles[3];
+Vehicle vehicles[3] = {
+{1000, 30, 60, 12, "Van"},
+{5000, 40, 50, 6, "Truck"},
+{10000, 80, 45, 4, "Lorry"}
+};
 
 Delivery deliveries[MAX_DELIVERIES];
 int delivery_count = 0;
@@ -246,3 +250,4 @@ void DisplayDistances() {
         printf(" ");
     }
 }
+
