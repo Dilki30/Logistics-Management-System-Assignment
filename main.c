@@ -321,3 +321,47 @@ void NewDeliveryRequest() {
 
     printf("Delivery request recorded.");
 }
+void CalculateAndDisplayLatestDelivery() {
+    if (delivery_count == 0) {
+        printf("No deliveries recorded.");
+        return;
+    }
+    Delivery *d = &deliveries[delivery_count - 1];
+    int dist = distance[d->src][d->dest];
+    if(dist == 0) {
+        printf("Distance between %s and %s not set.", cities[d->src].name, cities[d->dest].name);
+        return;
+    }
+    Vehicle v = vehicles[d->vehicle_type];
+    double delivery_cost = dist * v.rate_per_km * (1 + ((double)d->weight)/10000);
+    double delivery_time = (double) dist / v.avg_speed;
+    double fuel_used = (double) dist / v.fuel_efficiency;
+    double fuel_cost = fuel_used * FUEL_PRICE;
+    double operational_cost = delivery_cost + fuel_cost;
+    double profit = delivery_cost * 0.25;
+    double customer_charge = operational_cost + profit;
+
+    d->distance = dist;
+    d->delivery_cost = delivery_cost;
+    d->fuel_cost = fuel_cost;
+    d->operational_cost = operational_cost;
+    d->profit = profit;
+    d->customer_charge = customer_charge;
+    d->delivery_time = delivery_time;
+
+    printf("======================================================");
+    printf("DELIVERY COST ESTIMATION");
+    printf("From: %s", cities[d->src].name);
+    printf("To: %s", cities[d->dest].name);
+    printf("Distance: %d km", dist);
+    printf("Vehicle: %s", v.name);
+    printf("Weight: %d kg", d->weight);
+    printf("Base Cost: %.2f LKR", delivery_cost);
+    printf("Fuel Used: %.2f L", fuel_used);
+    printf("Fuel Cost: %.2f LKR", fuel_cost);
+    printf("Operational Cost: %.2f LKR", operational_cost);
+    printf("Profit: %.2f LKR", profit);
+    printf("Customer Charge: %.2f LKR", customer_charge);
+    printf("Estimated Time: %.2f hours", delivery_time);
+printf("======================================================");
+}
