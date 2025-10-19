@@ -7,6 +7,41 @@
 #define CITY_NAME_LEN 50
 #define FUEL_PRICE 310.0
 
+typedef struct {
+    char name[CITY_NAME_LEN];
+} City;
+
+typedef struct {
+    int capacity;
+    int rate_per_km;
+    int avg_speed;
+    int fuel_efficiency;
+    char name[20];
+} Vehicle;
+
+typedef struct {
+    int src;
+    int dest;
+    int weight;
+    int vehicle_type;
+    double distance;
+    double delivery_cost;
+    double fuel_cost;
+    double operational_cost;
+    double profit;
+    double customer_charge;
+    double delivery_time;
+} Delivery;
+
+City cities[MAX_CITIES];
+int cityCount = 0;
+int distance[MAX_CITIES][MAX_CITIES] = {0};
+
+Vehicle vehicles[3];
+
+Delivery deliveries[MAX_DELIVERIES];
+int delivery_count = 0;
+
 int main() {
     int choice;
     while (1) {
