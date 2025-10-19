@@ -149,3 +149,33 @@ void RenameCity() {
     strcpy(cities[idx].name, new_name);
     printf("City renamed successfully.");
 }
+void RemoveCity() {
+    if (cityCount == 0) {
+        printf("No cities to remove.");
+        return;
+    }
+    int idx;
+    printf("Enter city index to remove (0 to %d):", cityCount-1);
+    for (int i=0; i<cityCount; i++) {
+        printf("%d: %s", i, cities[i].name);
+    }
+    if(scanf("%d", &idx)!= 1) {
+        printf("Invalid input.");
+        clear_input_buffer();
+        return;
+    }
+    clear_input_buffer();
+    if (idx < 0 || idx >= cityCount) {
+        printf("Invalid city index.");
+        return;
+    }
+ for (int i = idx; i < cityCount - 1; i++) {
+        strcpy(cities[i].name, cities[i+1].name);
+        for (int j = 0; j < cityCount; j++) {
+            distance[i][j] = distance[i+1][j];
+            distance[j][i] = distance[j][i+1];
+        }
+    }
+    cityCount--;
+    printf("City removed successfully.");
+}
