@@ -115,3 +115,37 @@ void AddCity() {
      cityCount++;
     printf("City '%s' added successfully.", new_name);
 }
+void RenameCity() {
+    if (cityCount == 0) {
+        printf("No cities to rename.");
+        return;
+    }
+    int idx;
+    printf("Enter city index to rename (0 to %d) : ", cityCount-1);
+    for (int i=0; i<cityCount; i++) {
+        printf("%d: %s", i, cities[i].name);
+    }
+    if(scanf("%d", &idx)!=1) {
+        printf("Invalid input.");
+        clear_input_buffer();
+        return;
+    }
+    clear_input_buffer();
+    if (idx < 0 || idx >= cityCount) {
+        printf("Invalid city index.");
+        return;
+    }
+    char new_name[CITY_NAME_LEN];
+    printf("Enter new name for city '%s' : ", cities[idx].name);
+    fgets(new_name, CITY_NAME_LEN, stdin);
+    new_name[strcspn(new_name, " ")] = 0;
+
+    for (int i = 0; i < cityCount; i++) {
+        if (i != idx && strcasecmp(cities[i].name, new_name) == 0) {
+            printf("Another city already has this name.");
+            return;
+        }
+    }
+    strcpy(cities[idx].name, new_name);
+    printf("City renamed successfully.");
+}
