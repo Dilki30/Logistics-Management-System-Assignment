@@ -179,3 +179,52 @@ void RemoveCity() {
     cityCount--;
     printf("City removed successfully.");
 }
+void InputDistance() {
+    if (cityCount < 2) {
+        printf("Add at least two cities first.");
+        return;
+    }
+    int from, to;
+    printf("Cities : ");
+    for (int i = 0; i < cityCount; i++) {
+        printf("%d: %s", i, cities[i].name);
+    }
+    printf("Enter source city index: ");
+    if(scanf("%d", &from)!=1) {
+        printf("Invalid input.");
+        clear_input_buffer();
+        return;
+    }
+    printf("Enter destination city index: ");
+    if(scanf("%d", &to)!= 1) {
+        printf("Invalid input.");
+        clear_input_buffer();
+        return;
+          }
+    clear_input_buffer();
+
+    if (from < 0 || from >= cityCount || to < 0 || to >= cityCount) {
+        printf("Invalid city indices.");
+        return;
+    }
+    if (from == to) {
+        printf("Distance from city to itself is zero.");
+        return;
+    }
+    int dist;
+    printf("Enter distance from %s to %s (km): ", cities[from].name, cities[to].name);
+    if(scanf("%d", &dist)!= 1) {
+        printf("Invalid input.");
+        clear_input_buffer();
+        return;
+    }
+    if (dist <= 0) {
+        printf("Distance must be positive.");
+        clear_input_buffer();
+        return;
+    }
+    clear_input_buffer();
+    distance[from][to] = dist;
+    distance[to][from] = dist;
+    printf("Distance updated.");
+}
