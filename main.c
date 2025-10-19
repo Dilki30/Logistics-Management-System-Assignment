@@ -49,16 +49,16 @@ int delivery_count = 0;
 int main() {
     int choice;
     while (1) {
-        printf("----- Logistics Management System -----");
-        printf("1. Add City");
-        printf("2. Rename City");
-        printf("3. Remove City");
-        printf("4. Input/Edit Distance");
-        printf("5. Display Distance Table");
-        printf("6. New Delivery Request");
-        printf("7. Estimate Latest Delivery");
-        printf("8. Show Performance Reports");
-        printf("9. Exit");
+        printf("----- Logistics Management System -----\n");
+        printf("1. Add City\n");
+        printf("2. Rename City\n");
+        printf("3. Remove City\n");
+        printf("4. Input/Edit Distance\n");
+        printf("5. Display Distance Table\n");
+        printf("6. New Delivery Request\n");
+        printf("7. Estimate Latest Delivery\n");
+        printf("8. Show Performance Reports\n");
+        printf("9. Exit\n");
         printf("Choose an option : ");
         if
             (scanf("%d", &choice)!=1){
@@ -86,7 +86,7 @@ int main() {
     case 8: ShowReports();
     break;
     case 9: exit(0);
-    default: printf("Invalid choice! Try again.");
+    default: printf("Invalid choice! Try again.\n");
 }
     }
     return 0;
@@ -97,17 +97,17 @@ void clear_input_buffer() {
 }
 void AddCity() {
     if (cityCount >= MAX_CITIES) {
-        printf("City limit reached.");
+        printf("City limit reached.\n");
         return;
     }
     char new_name[CITY_NAME_LEN];
-    printf("Enter city name to add: ");
+    printf("Enter city name to add: \n");
     fgets(new_name, CITY_NAME_LEN, stdin);
     new_name[strcspn(new_name, " ")] = 0;
 
     for (int i = 0; i < cityCount; i++) {
         if (strcasecmp(cities[i].name, new_name) == 0) {
-            printf("City name already exists.");
+            printf("City name already exists.\n");
             return;
         }
     }
@@ -117,11 +117,11 @@ void AddCity() {
         distance[i][cityCount] = 0;
     }
      cityCount++;
-    printf("City '%s' added successfully.", new_name);
+    printf("City '%s' added successfully.\n", new_name);
 }
 void RenameCity() {
     if (cityCount == 0) {
-        printf("No cities to rename.");
+        printf("No cities to rename.\n");
         return;
     }
     int idx;
@@ -146,16 +146,16 @@ void RenameCity() {
 
     for (int i = 0; i < cityCount; i++) {
         if (i != idx && strcasecmp(cities[i].name, new_name) == 0) {
-            printf("Another city already has this name.");
+            printf("Another city already has this name.\n");
             return;
         }
     }
     strcpy(cities[idx].name, new_name);
-    printf("City renamed successfully.");
+    printf("City renamed successfully.\n");
 }
 void RemoveCity() {
     if (cityCount == 0) {
-        printf("No cities to remove.");
+        printf("No cities to remove.\n");
         return;
     }
     int idx;
@@ -181,11 +181,11 @@ void RemoveCity() {
         }
     }
     cityCount--;
-    printf("City removed successfully.");
+    printf("City removed successfully.\n");
 }
 void InputDistance() {
     if (cityCount < 2) {
-        printf("Add at least two cities first.");
+        printf("Add at least two cities first.\n");
         return;
     }
     int from, to;
@@ -195,13 +195,13 @@ void InputDistance() {
     }
     printf("Enter source city index: ");
     if(scanf("%d", &from)!=1) {
-        printf("Invalid input.");
+        printf("Invalid input.\n");
         clear_input_buffer();
         return;
     }
     printf("Enter destination city index: ");
     if(scanf("%d", &to)!= 1) {
-        printf("Invalid input.");
+        printf("Invalid input.\n");
         clear_input_buffer();
         return;
           }
@@ -212,29 +212,29 @@ void InputDistance() {
         return;
     }
     if (from == to) {
-        printf("Distance from city to itself is zero.");
+        printf("Distance from city to itself is zero.\n");
         return;
     }
     int dist;
     printf("Enter distance from %s to %s (km): ", cities[from].name, cities[to].name);
     if(scanf("%d", &dist)!= 1) {
-        printf("Invalid input.");
+        printf("Invalid input.\n");
         clear_input_buffer();
         return;
     }
     if (dist <= 0) {
-        printf("Distance must be positive.");
+        printf("Distance must be positive.\n");
         clear_input_buffer();
         return;
     }
     clear_input_buffer();
     distance[from][to] = dist;
     distance[to][from] = dist;
-    printf("Distance updated.");
+    printf("Distance updated.\n");
 }
 void DisplayDistances() {
     if (cityCount == 0) {
-        printf("No cities added yet.");
+        printf("No cities added yet.\n");
         return;
     }
     printf("Distance Matrix : ");
@@ -252,11 +252,11 @@ void DisplayDistances() {
 }
 void NewDeliveryRequest() {
     if (cityCount < 2) {
-        printf("At least two cities are required for deliveries.");
+        printf("At least two cities are required for deliveries.\n");
         return;
     }
     if (delivery_count >= MAX_DELIVERIES) {
-        printf("Max delivery records reached.");
+        printf("Max delivery records reached.\n");
         return;
     }
     int src, dest, weight, vtype;
@@ -279,7 +279,7 @@ void NewDeliveryRequest() {
     clear_input_buffer();
 
     if (src < 0 || src >= cityCount || dest < 0 || dest >= cityCount || src == dest) {
-        printf("Invalid source/destination selected.");
+        printf("Invalid source/destination selected.\n");
         return;
     }
     printf("Enter weight (kg) : ");
@@ -290,7 +290,7 @@ void NewDeliveryRequest() {
     }
     clear_input_buffer();
     if (weight <= 0) {
-        printf("Weight must be positive.");
+        printf("Weight must be positive.\n");
         return;
     }
     printf("Select vehicle type : ");
@@ -298,19 +298,19 @@ void NewDeliveryRequest() {
         printf("%d: %s (Capacity: %d kg)", i+1, vehicles[i].name, vehicles[i].capacity);
     }
     if(scanf("%d", &vtype)!= 1) {
-        printf("Invalid input.");
+        printf("Invalid input.\n");
         clear_input_buffer();
         return;
     }
     clear_input_buffer();
 
     if (vtype < 1 || vtype > 3) {
-        printf("Invalid vehicle type.");
+        printf("Invalid vehicle type.\n");
         return;
     }
     Vehicle v = vehicles[vtype - 1];
     if(weight > v.capacity) {
-        printf("Weight exceeds vehicle capacity!");
+        printf("Weight exceeds vehicle capacity!\n");
         return;
     }
     deliveries[delivery_count].src = src;
@@ -319,17 +319,17 @@ void NewDeliveryRequest() {
     deliveries[delivery_count].vehicle_type = vtype -1;
     delivery_count++;
 
-    printf("Delivery request recorded.");
+    printf("Delivery request recorded.\n");
 }
 void CalculateAndDisplayLatestDelivery() {
     if (delivery_count == 0) {
-        printf("No deliveries recorded.");
+        printf("No deliveries recorded.\n");
         return;
     }
     Delivery *d = &deliveries[delivery_count - 1];
     int dist = distance[d->src][d->dest];
     if(dist == 0) {
-        printf("Distance between %s and %s not set.", cities[d->src].name, cities[d->dest].name);
+        printf("Distance between %s and %s not set.\n", cities[d->src].name, cities[d->dest].name);
         return;
     }
     Vehicle v = vehicles[d->vehicle_type];
@@ -349,19 +349,52 @@ void CalculateAndDisplayLatestDelivery() {
     d->customer_charge = customer_charge;
     d->delivery_time = delivery_time;
 
-    printf("======================================================");
-    printf("DELIVERY COST ESTIMATION");
-    printf("From: %s", cities[d->src].name);
-    printf("To: %s", cities[d->dest].name);
-    printf("Distance: %d km", dist);
-    printf("Vehicle: %s", v.name);
-    printf("Weight: %d kg", d->weight);
-    printf("Base Cost: %.2f LKR", delivery_cost);
-    printf("Fuel Used: %.2f L", fuel_used);
-    printf("Fuel Cost: %.2f LKR", fuel_cost);
-    printf("Operational Cost: %.2f LKR", operational_cost);
-    printf("Profit: %.2f LKR", profit);
-    printf("Customer Charge: %.2f LKR", customer_charge);
-    printf("Estimated Time: %.2f hours", delivery_time);
-printf("======================================================");
+    printf("\n======================================================\n");
+    printf("DELIVERY COST ESTIMATION\n");
+    printf("From: %s\n", cities[d->src].name);
+    printf("To: %s\n", cities[d->dest].name);
+    printf("Distance: %d km\n", dist);
+    printf("Vehicle: %s\n", v.name);
+    printf("Weight: %d kg\n", d->weight);
+    printf("Base Cost: %.2f LKR\n", delivery_cost);
+    printf("Fuel Used: %.2f L\n", fuel_used);
+    printf("Fuel Cost: %.2f LKR\n", fuel_cost);
+    printf("Operational Cost: %.2f LKR\n", operational_cost);
+    printf("Profit: %.2f LKR\n", profit);
+    printf("Customer Charge: %.2f LKR\n", customer_charge);
+    printf("Estimated Time: %.2f hours\n", delivery_time);
+printf("\n======================================================\n");
+}
+void ShowReports() {
+    if (delivery_count == 0) {
+        printf("No deliveries completed yet.");
+        return;
+    }
+    int total_deliveries = delivery_count;
+    int total_distance = 0;
+    double total_delivery_time = 0.0;
+    double total_revenue = 0.0;
+    double total_profit = 0.0;
+    int longest_route = deliveries[0].distance;
+    int shortest_route = deliveries[0].distance;
+
+    for (int i=0; i<delivery_count; i++) {
+        total_distance += deliveries[i].distance;
+        total_delivery_time += deliveries[i].delivery_time;
+        total_revenue += deliveries[i].customer_charge;
+        total_profit += deliveries[i].profit;
+        if (deliveries[i].distance > longest_route)
+            longest_route = deliveries[i].distance;
+        if (deliveries[i].distance < shortest_route)
+            shortest_route = deliveries[i].distance;
+    }
+    printf("===== Performance Report =====");
+    printf("Total Deliveries Completed: %d\n", total_deliveries);
+   printf("Total Distance Covered: %d km\n", total_distance);
+    printf("Average Delivery Time: %.2f hours\n", total_delivery_time/total_deliveries);
+    printf("Total Revenue: %.2f LKR\n", total_revenue);
+    printf("Total Profit: %.2f LKR\n", total_profit);
+    printf("Longest Route Completed: %d km\n", longest_route);
+    printf("Shortest Route Completed: %d km\n", shortest_route);
+    printf("===============================\n");
 }
