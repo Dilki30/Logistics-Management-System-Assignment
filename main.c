@@ -91,3 +91,27 @@ void clear_input_buffer() {
     int ch;
     while ((ch = getchar()) != '\n' && ch != EOF);
 }
+void AddCity() {
+    if (cityCount >= MAX_CITIES) {
+        printf("City limit reached.");
+        return;
+    }
+    char new_name[CITY_NAME_LEN];
+    printf("Enter city name to add: ");
+    fgets(new_name, CITY_NAME_LEN, stdin);
+    new_name[strcspn(new_name, " ")] = 0;
+
+    for (int i = 0; i < cityCount; i++) {
+        if (strcasecmp(cities[i].name, new_name) == 0) {
+            printf("City name already exists.");
+            return;
+        }
+    }
+    strcpy(cities[cityCount].name, new_name);
+    for (int i = 0; i <= cityCount; i++) {
+        distance[cityCount][i] = 0;
+        distance[i][cityCount] = 0;
+    }
+     cityCount++;
+    printf("City '%s' added successfully.", new_name);
+}
